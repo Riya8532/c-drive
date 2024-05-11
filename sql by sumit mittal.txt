@@ -1,0 +1,979 @@
+SQL Session 1:
+
+==============================================
+
+What is a database ?
+
+A collection of data and holds this data in form of tables.
+
+What is table ?
+
+A entity Holds data in form of rows and columns.
+
+it is similar to excel spreadsheet.
+
+The database provide us the capability to access and manipulate the data.
+
+
+2 types of databases
+================================================
+
+1) Relational Database:
+
+Rows and columns and also the tables have relation between them.
+
+Ex: Mysql, SQL Server, Postgres, SQL Lite, Maria DB and others and all these use SQL
+
+2) NOSQL database:
+
+Key value, Document, Graph.
+
+Ex: Hbase, MongoDB, Casandra and others and all these have their own language
+
+
+
+SQL : Structured Query Language and is used to query relational databases.
+MySQL is a database and SQL is a way to interact with MySQL Db.
+
+Installation:
+
+goormIDE:  mysql-ctl cli;
+
+To list databases:
+================================
+show databases;
+
+Create database:
+=================================
+
+CREATE DATABASE trendytech;
+
+Drop database:
+
+=================================
+
+drop database trendytech;
+
+
+How do I know which database I am in currently:
+
+================================================
+
+SELECT database();
+
+Creating Table:
+
+=======================================
+
+CREATE TABLE employee
+(
+name VARCHAR(50),
+age INT,
+salary INT
+) ;
+
+
+To List tables:
+
+===============================
+
+show tables;
+
+Structure of Table:
+
+
+=====================================
+
+describe table name;
+
+desc tablename;
+
+Drop Table:
+
+======================================
+
+drop table table name;
+
+======================================
+Learn the SQL right way Session 2:
+==============================================
+
+CRUD Operations
+
+create  --- Insert statements
+read    --- select statements
+update  ---  update statements
+delete  ---- delete statements
+
+Creation of Table and Insert statements:
+
+=========================================
+
+employee table
+
+prefer to hire from bangalore location
+
+
+
+CREATE TABLE employee (
+firstname varchar(20),
+middlename varchar(20),
+lastname varchar(20),
+age INT,
+salary INT,
+location varchar(20)
+)
+
+describe employee;
+
+we are doing something with definition is called DDL
+
+show tables;
+
+select * from employee;
+
+inserting data into Table:
+=============================
+
+INSERT INTO employee(firstname, middlename, lastname, age, salary, location) VALUES ('satya','nara','yana',36,60000,'bangalore');
+
+
+INSERT INTO employee(firstname, middlename, lastname, age, salary, location) VALUES ('dhruvan','kumar','bhima',17,80000,'bangalore');
+
+How to insert data into only few columns:
+===============================================
+
+
+INSERT INTO employee(firstname,  lastname, age, salary, location) VALUES ('Rajesh','sharma',28,10000,'bangalore');
+
+INSERT INTO employee(firstname,  lastname, age, salary, location) VALUES ("Ritesh's",'sharma',28,10000,'bangalore');
+
+INSERT INTO employee(firstname,  lastname, age, salary, location) VALUES ('Ritesh\'s','sharma',28,10000,'bangalore');
+
+
+How to insert multiple values in one Go:
+
+=============================================================================
+
+INSERT INTO employee(firstname, middlename, lastname, age, salary, location) VALUES ('Kapil','Kumar','Sinha',28,10000,'bangalore'),('Satish','Kumar','Sinha',30,20000,'bangalore');
+
+Datatype Mismatch:
+======================================
+
+INSERT INTO employee(firstname, middlename, lastname, age, salary, location) VALUES ('Kapildddddddddddddddddddddddjjjjjjjj','Kumar','Sinha',28,10000,'bangalore');
+
+ERROR 1406 (22001): Data too long for column 'firstname' at row 1
+
+NULL
+=====================================
+
+
+INSERT INTO employee(firstname, lastname, age, salary) VALUES ('Kumar','Sinha',29,10000);
+
+Creating Table without NULL:
+
+====================================
+
+CREATE TABLE employee (
+firstname varchar(20) NOT NULL,
+middlename varchar(20),
+lastname varchar(20) NOT NULL,
+age INT NOT NULL,
+salary INT NOT NULL,
+location varchar(20) NOT NULL
+);
+
+INSERT INTO employee(middlename, lastname, age, salary, location) VALUES ('Kumar','Sinha',29,10000,'ba
+ngalore');
+ERROR 1364 (HY000): Field 'firstname' doesn't have a default value.
+
+Default Values:
+
+==================================
+
+CREATE TABLE employee (
+firstname varchar(20) NOT NULL,
+middlename varchar(20),
+lastname varchar(20) NOT NULL,
+age INT NOT NULL,
+salary INT NOT NULL,
+location varchar(20) DEFAULT 'BANGLORE'
+);
+
+
+INSERT INTO employee(firstname, lastname, age, salary, location) VALUES ('satish','kumar',29,10000,'hyderabad');
+
+
+INSERT INTO employee(firstname, lastname, age, salary, location) VALUES ('rajesh','kumar',29,10000,null);
+
+
+
+Combination of NOT NOT and DEFAULT
+
+=========================================
+CREATE TABLE employee (
+firstname varchar(20) NOT NULL,
+middlename varchar(20),
+lastname varchar(20) NOT NULL,
+age INT NOT NULL,
+salary INT NOT NULL,
+location varchar(20) NOT NULL DEFAULT 'BANGLORE'
+);
+
+ INSERT INTO employee(firstname, lastname, age, salary) VALUES ('rajesh','kumar',29,10000);
+l);
+ERROR 1048 (23000): Column 'location' cannot be null
+
+INSERT INTO employee(firstname, lastname, age, salary) VALUES ('rajesh','kumar',29,10000);
+
+
+======================================
+Session 3: Primary Key Vs Unique Key
+=========================================
+Primaty Key,
+Auto Increment Keys
+Unique Key
+Primary key vs unique key
+
+INSERT INTO employee(firstname, lastname, age, salary) VALUES ('rajesh','kumar',29,10000);
+
+
+Primary Key 
+==============================
+It helps us to uniquely identify in the table.
+
+
+CREATE TABLE employee (
+id INT,
+firstname varchar(20) NOT NULL,
+middlename varchar(20),
+lastname varchar(20) NOT NULL,
+age INT NOT NULL,
+salary INT NOT NULL,
+location varchar(20) NOT NULL DEFAULT 'BANGLORE'
+);
+
+INSERT INTO employee(id,firstname, lastname, age, salary) VALUES (1,'rajesh','kumar',29,10000),(2,'satish','kumar',28,30000);
+
+Creating table with Primary Key:
+===================================
+
+CREATE TABLE employee (
+id INT PRIMARY KEY,
+firstname varchar(20) NOT NULL,
+middlename varchar(20),
+lastname varchar(20) NOT NULL,
+age INT NOT NULL,
+salary INT NOT NULL,
+location varchar(20) NOT NULL DEFAULT 'BANGLORE'
+);
+
+INSERT INTO employee(id,firstname, lastname, age, salary) VALUES (3,'maneesh','kumar',30,10000)
+
+For a primary key null values are not allowed and repeated values also not allowed.
+
+INSERT INTO employee(id,firstname, lastname, age, salary) VALUES (NULL,'rejina','kumar',29,10000);
+ERROR 1048 (23000): Column 'id' cannot be null
+
+INSERT INTO employee(id,firstname, lastname, age, salary) VALUES (1,'rejina','kumar',29,10000);
+
+
+INSERT INTO employee(id,firstname, lastname, age, salary) VALUES (1,'rejina','kumar',29,10000);
+ERROR 1062 (23000): Duplicate entry '1' for key 'PRIMARY'
+
+other way to define the primary key:
+
+=====================================
+CREATE TABLE employee (
+id INT,
+firstname varchar(20) NOT NULL,
+middlename varchar(20),
+lastname varchar(20) NOT NULL,
+age INT NOT NULL,
+salary INT NOT NULL,
+location varchar(20) NOT NULL DEFAULT 'BANGLORE',
+PRIMARY KEY(id)
+);
+
+
+
+Composite Primary Key:
+
+CREATE TABLE employee (
+id INT,
+firstname varchar(20) NOT NULL,
+middlename varchar(20),
+lastname varchar(20) NOT NULL,
+age INT NOT NULL,
+salary INT NOT NULL,
+location varchar(20) NOT NULL DEFAULT 'BANGLORE',
+PRIMARY KEY(id,firstname)
+);
+
+
+creating Table with Autoincrement:
+
+======================================
+
+
+CREATE TABLE employee (
+id INT AUTO_INCREMENT,
+firstname varchar(20) NOT NULL,
+middlename varchar(20),
+lastname varchar(20) NOT NULL,
+age INT NOT NULL,
+salary INT NOT NULL,
+location varchar(20) NOT NULL DEFAULT 'BANGLORE',
+PRIMARY KEY(id)
+);
+
+
+
+
+INSERT INTO employee(firstname, lastname, age, salary) VALUES ('rejina','kumar',29,10000),('satish','ku
+mar',29,10000),('brijexh','kumar',29,10000);
+Query OK, 3 rows affected (0.02 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee;
++----+-----------+------------+----------+-----+--------+----------+
+| id | firstname | middlename | lastname | age | salary | location |
++----+-----------+------------+----------+-----+--------+----------+
+|  1 | rejina    | NULL       | kumar    |  29 |  10000 | BANGLORE |
+|  2 | satish    | NULL       | kumar    |  29 |  10000 | BANGLORE |
+|  3 | brijexh   | NULL       | kumar    |  29 |  10000 | BANGLORE |
++----+-----------+------------+----------+-----+--------+----------+
+
+
+Unique Key:
+
+===========================================
+
+
+
+You can have only one primary key and primary key can not hold any null value.
+
+We shopuld use primary key when we have to identify each record.
+
+
+Unique key can hold NULL values
+
+In MYSQL Unique key can hold any number of NULL values, 
+
+in some of other famous DB's only it allow only NULL.
+
+The purpose of unique key is to make sure the values do not duplicate.
+
+You can have only one primary key but multiple unique keys in table.
+
+
+
+CREATE TABLE employee (
+firstname varchar(20) NOT NULL,
+lastname varchar(20) NOT NULL,
+age INT NOT NULL,
+PRIMARY KEY(firstname,lastname)
+);
+
+
+insert into employee values ('kapil', 'sharma', 28);
+
+insert into employee values ('kapil', 'sinha', 28);
+
+
+CREATE TABLE employee (
+id INT UNIQUE KEY,
+firstname varchar(20) ,
+lastname varchar(20) ,
+age INT
+);
+
+===========================================
+SQL SESSION 4:
+======================================
+
+
+Primary Key
+
+Uniue Key
+
+Auto  increment
+
+CRUD Operations:
+
+Create    Insert
+
+Read      Select 
+
+Update    Update
+
+Delete    Delete
+
+
+CREATE TABLE employee (
+id INT,
+firstname varchar(20) NOT NULL,
+middlename varchar(20),
+lastname varchar(20) NOT NULL,
+age INT NOT NULL,
+salary INT NOT NULL,
+location varchar(20) NOT NULL DEFAULT 'BANGLORE',
+PRIMARY KEY(id)
+);
+
+
+Select
+===================
+
+1)  selecting all columns:
+
+select * from employee;
+
+2) Selecting specific columns.
+
+ select firstname,lastname from employee;
++-----------+----------+
+| firstname | lastname |
++-----------+----------+
+| rajesh    | kumar    |
+| satish    | kumar    |
+| rajesh    | kumar    |
++-----------+----------+
+
+3) How to see list whose age is greater than 25;
+
+Select by applying where clause.
+
+select * from employee where age > 25;
++----+-----------+------------+----------+-----+--------+----------+
+| id | firstname | middlename | lastname | age | salary | location |
++----+-----------+------------+----------+-----+--------+----------+
+|  1 | rajesh    | NULL       | kumar    |  29 |  10000 | BANGLORE |
+|  2 | satish    | NULL       | kumar    |  28 |  30000 | BANGLORE |
+|  3 | rajesh    | NULL       | kumar    |  29 |  10000 | BANGLORE |
++----+-----------+------------+----------+-----+--------+----------+
+
+4) Binary for case 
+
+By default it is case insensitive.
+
+select * from employee where binary firstname ='Rajesh';
+
+This stmt match exact case for case sensitive.
+
+Empty set (0.00 sec)
+
+mysql> select * from employee where firstname ='Rajesh';
++----+-----------+------------+----------+-----+--------+----------+
+| id | firstname | middlename | lastname | age | salary | location |
++----+-----------+------------+----------+-----+--------+----------+
+|  1 | rajesh    | NULL       | kumar    |  29 |  10000 | BANGLORE |
+
+
+5) 
+
+ Alias: Use As Keyword.
+
+select firstname as name,lastname as surname from employee;
++--------+---------+
+| name   | surname |
++--------+---------+
+| rajesh | kumar   |
+| satish | kumar   |
+| rajesh | kumar   |
++--------+---------+
+
+Update:
+================================
+
+
+update employee set lastname = 'sharma' where firstname = 'maneesh';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++----+-----------+------------+----------+-----+--------+----------+
+| id | firstname | middlename | lastname | age | salary | location |
++----+-----------+------------+----------+-----+--------+----------+
+|  1 | rajesh    | NULL       | kumar    |  29 |  10000 | BANGLORE |
+|  2 | satish    | NULL       | kumar    |  28 |  30000 | BANGLORE |
+|  3 | maneesh   | NULL       | sharma   |  30 |  10000 | BANGLORE |
++----+-----------+------------+----------+-----+--------+----------+
+ 
+ 
+update employee set location = 'hyderabad' where firstname = 'satish';
+Query OK, 0 rows affected (0.01 sec)
+Rows matched: 1  Changed: 0  Warnings: 0
+
+mysql> select * from employee;
++----+-----------+------------+----------+-----+--------+-----------+
+| id | firstname | middlename | lastname | age | salary | location  |
++----+-----------+------------+----------+-----+--------+-----------+
+|  1 | rajesh    | NULL       | kumar    |  29 |  10000 | BANGLORE  |
+|  2 | satish    | NULL       | kumar    |  28 |  30000 | hyderabad |
+|  3 | maneesh   | NULL       | sharma   |  30 |  10000 | BANGLORE  |
++----+-----------+------------+----------+-----+--------+-----------+
+
+
+update employee set salary=salary+5000;
+Query OK, 3 rows affected (0.01 sec)
+Rows matched: 3  Changed: 3  Warnings: 0
+
+mysql> select * from employee;
++----+-----------+------------+----------+-----+--------+-----------+
+| id | firstname | middlename | lastname | age | salary | location  |
++----+-----------+------------+----------+-----+--------+-----------+
+|  1 | rajesh    | NULL       | kumar    |  29 |  15000 | BANGLORE  |
+|  2 | satish    | NULL       | kumar    |  28 |  35000 | hyderabad |
+|  3 | maneesh   | NULL       | sharma   |  30 |  15000 | BANGLORE  |
++----+-----------+------------+----------+-----+--------+-----------+
+
+update employee set location = 'banglore' where firstname ='satish' and lastname = 'kumar';
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++----+-----------+------------+----------+-----+--------+----------+
+| id | firstname | middlename | lastname | age | salary | location |
++----+-----------+------------+----------+-----+--------+----------+
+|  1 | rajesh    | NULL       | kumar    |  29 |  15000 | BANGLORE |
+|  2 | satish    | NULL       | kumar    |  28 |  35000 | banglore |
+|  3 | maneesh   | NULL       | sharma   |  30 |  15000 | BANGLORE |
++----+-----------+------------+----------+-----+--------+----------+
+
+
+DELETE:
+=========================================
+
+DELETE from employee where id = 3;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from employee;
++----+-----------+------------+----------+-----+--------+----------+
+| id | firstname | middlename | lastname | age | salary | location |
++----+-----------+------------+----------+-----+--------+----------+
+|  1 | rajesh    | NULL       | kumar    |  29 |  15000 | BANGLORE |
+|  2 | satish    | NULL       | kumar    |  28 |  35000 | banglore |
++----+-----------+------------+----------+-----+--------+----------+
+
+delete from employee;
+Query OK, 2 rows affected (0.08 sec)
+
+mysql> select * from employee;
+Empty set (0.00 sec)
+
+
+ALTER:
+
+================================
+
+
+Alter is to alter the structure of the table.
+
+alter table employee add column jobtitle varchar(50);
+
+
+alter table employee add column jobtitle varchar(50);
+
+
+Query OK, 0 rows affected (0.19 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC employee;
++------------+-------------+------+-----+----------+-------+
+| Field      | Type        | Null | Key | Default  | Extra |
++------------+-------------+------+-----+----------+-------+
+| id         | int(11)     | NO   | PRI | NULL     |       |
+| firstname  | varchar(20) | NO   |     | NULL     |       |
+| middlename | varchar(20) | YES  |     | NULL     |       |
+| lastname   | varchar(20) | NO   |     | NULL     |       |
+| age        | int(11)     | NO   |     | NULL     |       |
+| salary     | int(11)     | NO   |     | NULL     |       |
+| location   | varchar(20) | NO   |     | BANGLORE |       |
+| jobtitle   | varchar(50) | YES  |     | NULL     |       |
++------------+-------------+------+-----+----------+-------+
+
+alter table employee drop  column jobtitle ;
+
+alter table employee drop  column jobtitle ;
+Query OK, 0 rows affected (0.12 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC employee;
++------------+-------------+------+-----+----------+-------+
+| Field      | Type        | Null | Key | Default  | Extra |
++------------+-------------+------+-----+----------+-------+
+| id         | int(11)     | NO   | PRI | NULL     |       |
+| firstname  | varchar(20) | NO   |     | NULL     |       |
+| middlename | varchar(20) | YES  |     | NULL     |       |
+| lastname   | varchar(20) | NO   |     | NULL     |       |
+| age        | int(11)     | NO   |     | NULL     |       |
+| salary     | int(11)     | NO   |     | NULL     |       |
+| location   | varchar(20) | NO   |     | BANGLORE |       |
++------------+-------------+------+-----+----------+-------+
+
+
+alter table employee modify column firstname varchar(30);
+
+alter table employee modify column firstname varchar(30);
+Query OK, 0 rows affected (0.17 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC employee;
++------------+-------------+------+-----+----------+-------+
+| Field      | Type        | Null | Key | Default  | Extra |
++------------+-------------+------+-----+----------+-------+
+| id         | int(11)     | NO   | PRI | NULL     |       |
+| firstname  | varchar(30) | YES  |     | NULL     |       |
+| middlename | varchar(20) | YES  |     | NULL     |       |
+| lastname   | varchar(20) | NO   |     | NULL     |       |
+| age        | int(11)     | NO   |     | NULL     |       |
+| salary     | int(11)     | NO   |     | NULL     |       |
+| location   | varchar(20) | NO   |     | BANGLORE |       |
++------------+-------------+------+-----+----------+-------+
+
+
+alter table employee drop primary key;
+
+
+alter table employee drop primary key;
+Query OK, 0 rows affected (0.18 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC employee;
++------------+-------------+------+-----+----------+-------+
+| Field      | Type        | Null | Key | Default  | Extra |
++------------+-------------+------+-----+----------+-------+
+| id         | int(11)     | NO   |     | NULL     |       |
+| firstname  | varchar(30) | YES  |     | NULL     |       |
+| middlename | varchar(20) | YES  |     | NULL     |       |
+| lastname   | varchar(20) | NO   |     | NULL     |       |
+| age        | int(11)     | NO   |     | NULL     |       |
+| salary     | int(11)     | NO   |     | NULL     |       |
+| location   | varchar(20) | NO   |     | BANGLORE |       |
++------------+-------------+------+-----+----------+-------+
+
+
+alter table employee add primary key(id);
+
+
+alter table employee add primary key(id);
+Query OK, 0 rows affected (0.11 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> DESC employee;
++------------+-------------+------+-----+----------+-------+
+| Field      | Type        | Null | Key | Default  | Extra |
++------------+-------------+------+-----+----------+-------+
+| id         | int(11)     | NO   | PRI | NULL     |       |
+| firstname  | varchar(30) | YES  |     | NULL     |       |
+| middlename | varchar(20) | YES  |     | NULL     |       |
+| lastname   | varchar(20) | NO   |     | NULL     |       |
+| age        | int(11)     | NO   |     | NULL     |       |
+| salary     | int(11)     | NO   |     | NULL     |       |
+| location   | varchar(20) | NO   |     | BANGLORE |       |
++------------+-------------+------+-----+----------+-------+
+
+
+DDL VS DML:
+==================================
+
+Data Definition Language:
+
+Deals with table structure.
+
+CREATE, ALTER, DROP are DDL commands.
+
+Data Manipulation Language:
+
+Deals with data directly.
+
+INSERT, UPDATE, DELETE are DML commands
+
+delete from table;
+
+Truncate also removes all records but it is DDL command.
+
+When you use delete it will delete the data one by one records
+
+When we use truncate it drops the table internally and recreate again.
+
+truncate is more effeciant than delete.
+
+
+==================================
+SQL Session 5:
+
+=================================================
+
+Foreign Key Constraint;
+====================================
+
+Student Table:
+===================
+create table students(
+student_id INT AUTO_INCREMENT,
+student_fname varchar(30) NOT NULL,
+student_lname varchar(30) NOT NULL,
+student_mname varchar(30),
+student_email varchar(30) NOT NULL,
+sudent_phone varchar(15) NOT NULL,
+student_alternate_phone varchar(15),
+enrollment_date TIMESTAMP NOT NULL,
+years_of_exp INT NOT NULL,
+student_company varchar(30),
+batch_date varchar(30) NOT NULL,
+source_of_joining varchar(30) NOT NULL,
+location varchar(30) NOT NULL,
+PRIMARY KEY(student_id),
+UNIQUE KEY(student_email)
+);
+
+
+
+insert into student(student_fname,student_lname,student_email,sudent_phone,years_of_exp,student_company,batch_date,source_of_joining,location) values('rohit','sharma','rohit@gmail.com','9191919191',6,'walmart','05-02-2021','linkedin','bangalore');
+
+insert into students(student_fname,student_lname,student_email,sudent_phone,years_of_exp,student_company,batch_date,source_of_joining,location) values('virat','kohli','virat@gmail.com','9292929292',3,'flipkart','05-02-2021','linkedin','hyderabad');
+
+insert into students(student_fname,student_lname,student_email,sudent_phone,years_of_exp,student_company,batch_date,source_of_joining,location) values('shikar','dhawan','shikar@gmail.com','9393939393',12,'19-02-2021','google','bangalore');
+
+insert into students(student_fname,student_lname,student_email,sudent_phone,years_of_exp,student_company,batch_date,source_of_joining,location) values('rahul','dravid','rahul@gmail.com','9494949494',8,'walmart','19-02-2021','quora','chennai');
+
+insert into students(student_fname,student_lname,student_email,sudent_phone,years_of_exp,student_company,batch_date,source_of_joining,location) values('kapil','dev','kapil@gmail.com','9294919191',15,'microsoft','05-02-2021','friend','pune'),('brain','lara','brain@gmail.com','9394919191',18,'tcs','05-02-2021','youtube','pune'),('carl','hooper','carl@gmail.com','9293519191',20,'wipro','19-02-2021','youtube','pune'),('saurabh','ganguly','saurabh@gmail.com','9291975191',14,'wipro','19-02-2021','google','chennai');
+
+
+
+SELECT Statement;
+
+=====================
+
+select student_id,enrollment_date,student_fname,student_email,years_of_exp,student_company,batch_date,source_of_joining,location from students;
+
+
+Courses Table:
+
+==========================
+
+create table courses(
+course_id INT NOT NULL,
+course_name varchar(30) NOT NULL,
+course_duration_in_months INT NOT NULL,
+course_fee INT NOT NULL,
+PRIMARY KEY(course_id)
+);
+
+
+insert into courses(course_id,course_name,course_duration_in_months,course_fee)
+values(1,'bigdata',6,40000),
+(2,'webdevelopment',3,20000),
+(3,'datascience',6,50000),
+(4,'devops',1,10000);
+
+
+Student Table:
+===================
+create table students(
+student_id INT AUTO_INCREMENT,
+student_fname varchar(30) NOT NULL,
+student_lname varchar(30) NOT NULL,
+student_mname varchar(30),
+student_email varchar(30) NOT NULL,
+sudent_phone varchar(15) NOT NULL,
+student_alternate_phone varchar(15),
+enrollment_date TIMESTAMP NOT NULL,
+selected_course INT NOT NULL DEFAULT 1,
+years_of_exp INT NOT NULL,
+student_company varchar(30),
+batch_date varchar(30) NOT NULL,
+source_of_joining varchar(30) NOT NULL,
+location varchar(30) NOT NULL,
+PRIMARY KEY(student_id),
+UNIQUE KEY(student_email)
+);
+
+
+
+
+insert into students(student_fname,student_lname,student_email,sudent_phone,selected_course,years_of_exp,student_company,batch_date,source_of_joining,location) values('rohit','sharma','rohit@gmail.com','9191919191',3,6,'walmart','05-02-2021','linkedin','bangalore');
+
+insert into students(student_fname,student_lname,student_email,sudent_phone,selected_course,years_of_exp,student_company,batch_date,source_of_joining,location) values('virat','kohli','virat@gmail.com','9292929292',2,'flipkart','05-02-2021','linkedin','hyderabad');
+
+insert into students(student_fname,student_lname,student_email,sudent_phone,selected_course,years_of_exp,student_company,batch_date,source_of_joining,location) values('shikar','dhawan','shikar@gmail.com','9393939393',4,12,'19-02-2021','google','bangalore');
+
+insert into students(student_fname,student_lname,student_email,sudent_phone,years_of_exp,student_company,batch_date,source_of_joining,location) values('rahul','dravid','rahul@gmail.com','9494949494',8,'walmart','19-02-2021','quora','chennai');
+
+insert into students(student_fname,student_lname,student_email,sudent_phone,selected_course,years_of_exp,student_company,batch_date,source_of_joining,location) values('kapil','dev','kapil@gmail.com','9294919191',4,15,'microsoft','05-02-2021','friend','pune'),('brain','lara','brain@gmail.com','9394919191',2,18,'tcs','05-02-2021','youtube','pune'),('carl','hooper','carl@gmail.com','9293519191',1,20,'wipro','19-02-2021','youtube','pune'),('saurabh','ganguly','saurabh@gmail.com','9291975191',3,14,'wipro','19-02-2021','google','chennai');
+
+insert into students(student_fname,student_lname,student_email,sudent_phone,selected_course,years_of_exp,student_company,batch_date,source_of_joining,location) values('jasprit','bhumra','jasprit@gmail.com','9191619191',5,6,'walmart','05-02-2021','linkedin','bangalore');
+
+
+Creating Table with Foreign Key constraint:
+==============================================
+
+
+create table students(
+student_id INT AUTO_INCREMENT,
+student_fname varchar(30) NOT NULL,
+student_lname varchar(30) NOT NULL,
+student_mname varchar(30),
+student_email varchar(30) NOT NULL,
+sudent_phone varchar(15) NOT NULL,
+student_alternate_phone varchar(15),
+enrollment_date TIMESTAMP NOT NULL,
+selected_course INT NOT NULL DEFAULT 1,
+years_of_exp INT NOT NULL,
+student_company varchar(30),
+batch_date varchar(30) NOT NULL,
+source_of_joining varchar(30) NOT NULL,
+location varchar(30) NOT NULL,
+PRIMARY KEY(student_id),
+UNIQUE KEY(student_email),
+FOREIGN KEY(selected_course) REFERENCES courses(course_id)
+);
+
+
+parent - courses
+
+child - students
+
+
+The foreign key constraint is used to prevent actions that would destroy links between two tables.
+
+Fore Key is the field in one table that refers to primary key in other table.
+
+selected_course is foreign key in students table which refers to course_id in courses table.
+
+the table with foreign key is called child table and the key with primary key is called reference table or parent table.
+
+constraint are used to limit the type of data tht can go into table
+
+this ensures the accuracy and reliability of the data is maintained.
+
+if there is any violation then the action is aborted.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+a
+
+
+
+
+
+ 
+
+
+
+
+
